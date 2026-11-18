@@ -1,0 +1,38 @@
+{
+  "name": "@fengsui/http-axios",
+  "version": "0.1.0",
+  "description": "烽燧 HTTP 传输插件：基于 axios 的 HttpClient 实现",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@fengsui/http": "workspace:^"
+  },
+  "peerDependencies": {
+    "axios": "^1.7.0"
+  },
+  "devDependencies": {
+    "axios": "^1.7.0"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@fengsui/example-nest",
+  "version": "0.1.0",
+  "private": true,
+  "description": "烽燧 × NestJS 12 示例：邮件纯文本 / HTML 模板 / 附件与企业微信机器人",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@fengsui/adapter-email": "workspace:^",
+    "@fengsui/adapter-wecom-bot": "workspace:^",
+    "@fengsui/config-file": "workspace:^",
+    "@fengsui/core": "workspace:^",
+    "@nestjs/common": "^12.5.1",
+    "@nestjs/core": "^12.5.1",
+    "@nestjs/platform-express": "^12.5.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "dotenv": "^18.0.10",
+    "ejs": "^7.0.2",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^12.0.13",
+    "@nestjs/schematics": "^12.0.13",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "typescript": "^6.0.3"
+  }
+}

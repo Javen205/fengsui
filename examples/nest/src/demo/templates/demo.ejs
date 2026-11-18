@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>烽燧 × NestJS 12 演示台</title>
+    <style>
+      :root {
+        --bg: #f3efe7;
+        --card: #ffffff;
+        --ink: #1f2933;
+        --muted: #6b7785;
+        --line: #e8e0d2;
+        --ember: #b45309;
+        --ember-soft: #fdf3e7;
+        --ok: #15803d;
+        --warn: #b45309;
+        --error: #b91c1c;
+        --shadow: 0 18px 45px rgba(31, 41, 51, 0.09);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 12% 0%, #fbe9d2 0, transparent 38%),
+          radial-gradient(circle at 88% 8%, #e7ece6 0, transparent 32%),
+          var(--bg);
+        color: var(--ink);
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+          'Microsoft YaHei', sans-serif;
+      }
+
+      .shell {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 40px 20px 56px;
+      }
+
+      .brand {
+        font-size: 12px;
+        letter-spacing: 4px;
+        color: var(--ember);
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 12px 0 8px;
+        font-size: clamp(26px, 4vw, 36px);
+        line-height: 1.25;
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .status-line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        background: #eef1f4;
+        color: #52606d;
+      }
+
+      .pill::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .pill.ok {
+        background: #e8f5ec;
+        color: var(--ok);
+      }
+
+      .pill.warn {
+        background: #fdf1e3;
+        color: var(--warn);
+      }
+
+      .pill.error {
+        background: #fdeaea;
+        color: var(--error);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 18px;
+        margin-top: 26px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .card h2 {
+        margin: 0;
+        font-size: 19px;
+      }
+
+      .hint {
+        margin: 6px 0 18px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      label.field {
+        display: block;
+        margin-bottom: 14px;
+        font-size: 13px;
+        color: #3e4c59;
+      }
+
+      label.field span {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+
+      input[type='email'],
+      input[type='text'],
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d9d2c5;
+        border-radius: 10px;
+        background: #fbfaf7;
+        font-size: 14px;
+        color: var(--ink);
+        outline: none;
+        transition:
+          border-color 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+
+      input:focus {
+        border-color: var(--ember);
+        box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.12);
+      }
+
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 18px;
+        font-size: 13px;
+        color: #3e4c59;
+        cursor: pointer;
+      }
+
+      .check input {
+        width: 15px;
+        height: 15px;
+        accent-color: var(--ember);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      button {
+        appearance: none;
+        border: 1px solid #ddd3c3;
+        border-radius: 10px;
+        background: #fff;
+        color: #3e4c59;
+        padding: 9px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          transform 0.12s ease,
+          background 0.12s ease,
+          border-color 0.12s ease;
+      }
+
+      button:hover:not(:disabled) {
+        border-color: var(--ember);
+        color: var(--ember);
+        background: var(--ember-soft);
+      }
+
+      button:active:not(:disabled) {
+        transform: translateY(1px);
+      }
+
+      button.primary {
+        border-color: var(--ember);
+        background: var(--ember);
+        color: #fff;
+      }
+
+      button.primary:hover:not(:disabled) {
+        background: #97440a;
+        color: #fff;
+      }
+
+      button.ghost {
+        background: #f7f4ee;
+      }
+
+      button.small {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .console {
+        margin-top: 18px;
+        background: #16202a;
+        border-radius: 18px;
+        padding: 20px 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .console-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .console-head h2 {
+        margin: 0;
+        color: #f3efe7;
+        font-size: 15px;
+        letter-spacing: 1px;
+      }
+
+      .console-head button {
+        background: transparent;
+        border-color: #3b4b5a;
+        color: #b9c6d2;
+      }
+
+      .console-head button:hover:not(:disabled) {
+        background: #22303d;
+        color: #fff;
+        border-color: #52667a;
+      }
+
+      pre {
+        margin: 0;
+        max-height: 320px;
+        overflow: auto;
+        color: #d7e2ec;
+        font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+        font-size: 12.5px;
+        line-height: 1.65;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      pre.error {
+        color: #ffb4a8;
+      }
+
+      footer {
+        margin-top: 24px;
+        color: #8b97a3;
+        font-size: 12px;
+        line-height: 1.8;
+        text-align: center;
+      }
+
+      footer a {
+        color: var(--ember);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <div class="brand">FENGSUI · DEMO CONSOLE</div>
+        <h1>烽燧 × NestJS 12 演示台</h1>
+        <p class="lede">
+          点按钮即可验证邮件与企业微信机器人的全部示例接口。默认勾选 dry-run，只做校验不真正投递；
+          确认无误后取消勾选再点一次即可真实发送。
+        </p>
+        <div class="status-line">
+          <span id="wecom-pill" class="pill">机器人状态检测中…</span>
+          <span id="wecom-hint"></span>
+        </div>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <h2>邮件</h2>
+          <p class="hint">渠道、凭证引用与发件人来自 fengsui.config.json。</p>
+
+          <label class="field">
+            <span>收件人</span>
+            <input id="email-to" type="email" placeholder="you@example.com" value="<%= defaultEmail %>" />
+          </label>
+
+          <label class="field">
+            <span>称呼</span>
+            <input id="email-name" type="text" value="<%= defaultName %>" />
+          </label>
+
+          <label class="check">
+            <input id="email-dryrun" type="checkbox" checked />
+            dry-run（只校验不投递）
+          </label>
+
+          <div class="actions">
+            <button type="button" class="ghost" data-action="preview">预览 HTML</button>
+            <button type="button" data-action="email:text">纯文本</button>
+            <button type="button" data-action="email:html">HTML 模板</button>
+            <button type="button" data-action="email:attachments">附件</button>
+            <button type="button" class="primary" data-action="email:full">完整邮件</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>企业微信机器人</h2>
+          <p class="hint">
+            支持同时配置多个机器人，可在上方切换；未填目标时尝试使用环境变量 WECOM_DEMO_TO。
+          </p>
+
+          <label class="field">
+            <span>机器人</span>
+            <select id="wecom-alias">
+              <option value="">（未配置）</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>目标</span>
+            <input id="wecom-to" type="text" placeholder="userid 或 chatid" value="<%= defaultWecomTarget %>" />
+          </label>
+
+          <label class="check">
+            <input id="wecom-dryrun" type="checkbox" checked />
+            dry-run（只校验不投递）
+          </label>
+
+          <div class="actions">
+            <button type="button" class="ghost" data-action="wecom:status">查询状态</button>
+            <button type="button" data-action="wecom:markdown">Markdown</button>
+            <button type="button" class="primary" data-action="wecom:card">模板卡片</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="console">
+        <div class="console-head">
+          <h2>响应</h2>
+          <button type="button" class="ghost small" id="clear">清空</button>
+        </div>
+        <pre id="output">等待操作…</pre>
+      </section>
+
+      <footer>
+        烽燧（fengsui）· 一封信封，万里相传 ·
+        <a href="https://gitee.com/javen205/IJPay" target="_blank" rel="noreferrer">IJPay</a> ·
+        <a href="https://gitee.com/javen205/TNWX" target="_blank" rel="noreferrer">TNWX</a> ·
+        <a href="/demo/api" target="_blank" rel="noreferrer">JSON 接口索引</a>
+      </footer>
+    </main>
+
+    <script>
+      const output = document.getElementById('output');
+      const clearButton = document.getElementById('clear');
+      const emailTo = document.getElementById('email-to');
+      const emailName = document.getElementById('email-name');
+      const emailDryRun = document.getElementById('email-dryrun');
+      const wecomTo = document.getElementById('wecom-to');
+      const wecomAlias = document.getElementById('wecom-alias');
+      const wecomDryRun = document.getElementById('wecom-dryrun');
+      const wecomPill = document.getElementById('wecom-pill');
+      const wecomHint = document.getElementById('wecom-hint');
+      const buttons = Array.from(document.querySelectorAll('[data-action]'));
+
+      let busy = false;
+
+      function stamp() {
+        return new Date().toLocaleTimeString('zh-CN', { hour12: false });
+      }
+
+      function print(method, path, status, payload) {
+        const ok = status >= 200 && status < 300;
+        const body = typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2);
+        const line = '[' + stamp() + '] ' + method + ' ' + path + ' → ' + (status || 'NETWORK ERROR');
+        output.textContent = line + '\n' + body + '\n\n' + output.textContent;
+        output.classList.toggle('error', !ok);
+        output.scrollTop = 0;
+      }
+
+      function setBusy(value) {
+        busy = value;
+        for (const button of buttons) {
+          button.disabled = value;
+        }
+      }
+
+      async function request(method, path, body) {
+        const init = { method, headers: {} };
+        if (body !== undefined) {
+          init.headers['content-type'] = 'application/json';
+          init.body = JSON.stringify(body);
+        }
+
+        try {
+          const response = await fetch(path, init);
+          const text = await response.text();
+          let payload = text;
+          try {
+            payload = JSON.parse(text);
+          } catch {
+            // 非 JSON 响应保留原文。
+          }
+          print(method, path, response.status, payload);
+          return response;
+        } catch (error) {
+          print(method, path, 0, String(error));
+          return undefined;
+        }
+      }
+
+      function readEmailInput() {
+        const to = emailTo.value.trim();
+        if (!to) {
+          print('POST', '/demo/email/*', 0, '请先填写收件人邮箱');
+          emailTo.focus();
+          return undefined;
+        }
+
+        return {
+          to,
+          name: emailName.value.trim() || undefined,
+          dryRun: emailDryRun.checked,
+        };
+      }
+
+      function renderBotOptions(bots) {
+        const current = wecomAlias.value;
+        wecomAlias.replaceChildren();
+
+        for (const bot of bots) {
+          const option = document.createElement('option');
+          option.value = bot.alias;
+          option.disabled = !bot.enabled;
+          option.textContent = bot.alias + (bot.enabled ? '' : '（未启用）');
+          wecomAlias.append(option);
+        }
+
+        const enabled = bots.filter((bot) => bot.enabled);
+        if (enabled.length === 0) {
+          const option = document.createElement('option');
+          option.value = '';
+          option.textContent = '（未配置）';
+          wecomAlias.append(option);
+          return;
+        }
+
+        const keep = enabled.some((bot) => bot.alias === current);
+        wecomAlias.value = keep ? current : enabled[0].alias;
+      }
+
+      async function refreshWecomStatus() {
+        try {
+          const response = await fetch('/demo/wecom/status');
+          const data = await response.json();
+          const bots = Array.isArray(data.bots) ? data.bots : [];
+          renderBotOptions(bots);
+
+          const enabled = bots.filter((bot) => bot.enabled);
+          if (!data.enabled || enabled.length === 0) {
+            wecomPill.textContent = '机器人未启用';
+            wecomPill.className = 'pill warn';
+            wecomHint.textContent = data.hint || '';
+            return;
+          }
+
+          const allConnected = enabled.every((bot) => bot.connected);
+          wecomPill.textContent =
+            '机器人 ' + enabled.map((bot) => bot.alias + ':' + (bot.state || 'enabled')).join(' / ');
+          wecomPill.className = 'pill ' + (allConnected ? 'ok' : 'warn');
+          wecomHint.textContent = data.hint || '';
+        } catch (error) {
+          wecomPill.textContent = '状态获取失败';
+          wecomPill.className = 'pill error';
+          wecomHint.textContent = String(error);
+        }
+      }
+
+      async function handleAction(action) {
+        if (busy) {
+          return;
+        }
+
+        if (action === 'preview') {
+          const name = emailName.value.trim();
+          const url = '/demo/email/preview' + (name ? '?name=' + encodeURIComponent(name) : '');
+          print('GET', url, 200, '已在新标签页打开邮件预览');
+          window.open(url, '_blank', 'noopener');
+          return;
+        }
+
+        setBusy(true);
+        try {
+          if (action.startsWith('email:')) {
+            const body = readEmailInput();
+            if (body !== undefined) {
+              await request('POST', '/demo/email/' + action.slice(6), body);
+            }
+          } else if (action === 'wecom:status') {
+            await request('GET', '/demo/wecom/status');
+            await refreshWecomStatus();
+          } else if (action.startsWith('wecom:')) {
+            const target = wecomTo.value.trim();
+            await request('POST', '/demo/wecom/' + action.slice(6), {
+              to: target || undefined,
+              alias: wecomAlias.value || undefined,
+              dryRun: wecomDryRun.checked,
+            });
+            await refreshWecomStatus();
+          }
+        } finally {
+          setBusy(false);
+        }
+      }
+
+      for (const button of buttons) {
+        button.addEventListener('click', () => {
+          void handleAction(button.dataset.action);
+        });
+      }
+
+      clearButton.addEventListener('click', () => {
+        output.textContent = '等待操作…';
+        output.classList.remove('error');
+      });
+
+      void refreshWecomStatus();
+    </script>
+  </body>
+</html>

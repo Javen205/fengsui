@@ -1,24 +1,21 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["ES2023", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "noEmit": true,
-    "types": ["node"]
+    "paths": {
+      "@fengsui/core": ["./packages/core/src/index.ts"],
+      "@fengsui/http": ["./packages/http/src/index.ts"],
+      "@fengsui/http-fetch": ["./packages/http-fetch/src/index.ts"],
+      "@fengsui/http-axios": ["./packages/http-axios/src/index.ts"],
+      "@fengsui/config-file": ["./packages/config-file/src/index.ts"],
+      "@fengsui/adapter-email": ["./packages/adapter-email/src/index.ts"],
+      "@fengsui/adapter-wecom-bot": ["./packages/adapter-wecom-bot/src/index.ts"]
+    }
   },
-  "include": ["src", "tests", "tsup.config.ts", "vitest.config.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "packages/*/src/**/*.ts",
+    "packages/*/test/**/*.ts",
+    "tsup.config.base.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": ["dist", "node_modules", "packages/*/dist", "packages/*/node_modules"]
 }

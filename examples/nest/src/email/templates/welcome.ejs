@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>烽燧 · 开源项目速览</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f3efe7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;color:#1f2933;">
+    <!-- 预读：在收件箱列表里显示的一句摘要 -->
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
+      烽燧、IJPay、TNWX：三份开源项目，一封信封讲清楚。
+    </div>
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f3efe7;padding:32px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:640px;background-color:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 12px 40px rgba(31,41,51,0.10);">
+            <!-- 头部 -->
+            <tr>
+              <td style="background-color:#1f2933;background-image:linear-gradient(135deg,#1f2933 0%,#3b2f2a 55%,#b45309 100%);padding:40px 40px 32px;">
+                <div style="font-size:12px;letter-spacing:4px;color:#f6c07a;">FENGSUI · OPEN SOURCE</div>
+                <h1 style="margin:16px 0 8px;font-size:28px;line-height:1.35;color:#ffffff;font-weight:700;">
+                  <%= intro.title %>
+                </h1>
+                <p style="margin:0;font-size:15px;line-height:1.7;color:#e8d5c4;">
+                  <%= intro.subtitle %>
+                </p>
+              </td>
+            </tr>
+
+            <!-- 问候 -->
+            <tr>
+              <td style="padding:32px 40px 8px;">
+                <p style="margin:0 0 12px;font-size:16px;line-height:1.8;color:#1f2933;">
+                  <%= greeting %>
+                </p>
+                <p style="margin:0;font-size:15px;line-height:1.8;color:#52606d;">
+                  这封信由 <strong style="color:#1f2933;">NestJS 12</strong> 示例应用通过
+                  <strong style="color:#b45309;">烽燧（fengsui）</strong> 发出，同时演示纯文本、
+                  HTML 模板与附件三种邮件形态。下面是我维护的三个开源项目。
+                </p>
+              </td>
+            </tr>
+
+            <!-- 项目卡片 -->
+            <% projects.forEach(function (project, index) { %>
+            <tr>
+              <td style="padding:16px 40px 0;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#faf8f4;border:1px solid #efe7da;border-radius:14px;">
+                  <tr>
+                    <td style="padding:22px 24px;">
+                      <div style="font-size:11px;letter-spacing:3px;color:#b45309;font-weight:700;">
+                        0<%= index + 1 %>
+                      </div>
+                      <h2 style="margin:6px 0 2px;font-size:20px;line-height:1.4;color:#1f2933;">
+                        <%= project.name %>
+                      </h2>
+                      <div style="font-size:13px;color:#b45309;font-weight:600;">
+                        <%= project.tagline %>
+                      </div>
+                      <p style="margin:12px 0 0;font-size:14px;line-height:1.8;color:#52606d;">
+                        <%= project.description %>
+                      </p>
+                      <ul style="margin:12px 0 0;padding-left:18px;color:#3e4c59;font-size:13px;line-height:1.9;">
+                        <% project.highlights.forEach(function (item) { %>
+                        <li><%= item %></li>
+                        <% }); %>
+                      </ul>
+                      <div style="margin-top:14px;">
+                        <% project.links.forEach(function (link) { %>
+                        <a href="<%= link.url %>" style="display:inline-block;margin:0 14px 6px 0;font-size:13px;color:#b45309;text-decoration:none;border-bottom:1px solid #e7c9a8;">
+                          <%= link.label %>
+                        </a>
+                        <% }); %>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <% }); %>
+
+            <!-- 结尾 -->
+            <tr>
+              <td style="padding:28px 40px 36px;">
+                <div style="height:1px;background-color:#efe7da;margin-bottom:20px;"></div>
+                <p style="margin:0 0 8px;font-size:13px;line-height:1.7;color:#7b8794;">
+                  想聊聊支付、微信生态或消息投递？直接回复这封邮件，或到
+                  <a href="<%= author.gitee %>" style="color:#b45309;text-decoration:none;">Gitee @<%= author.name %></a>
+                  找我。
+                </p>
+                <p style="margin:0;font-size:12px;line-height:1.7;color:#9aa5b1;">
+                  发送于 <%= generatedAt %> · 烽燧 fengsui × NestJS 12 示例
+                </p>
+              </td>
+            </tr>
+          </table>
+
+          <p style="max-width:640px;margin:16px auto 0;font-size:11px;line-height:1.6;color:#9aa5b1;text-align:center;">
+            你收到这封邮件，是因为本项目正在演示邮件渠道能力。
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
