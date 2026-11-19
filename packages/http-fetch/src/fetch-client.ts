@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import { HttpTransportError, type HttpClient, type HttpRequest, type HttpResponse } from '@fengsui/http';
+import { HttpTransportError, type HttpClient, type HttpRequest, type HttpResponse } from '@javen205/fengsui-http';
 
 export interface FetchHttpClientOptions {
   /** 单次请求默认超时，未在请求里覆盖时生效。默认 15000ms。 */

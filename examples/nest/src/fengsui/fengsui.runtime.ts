@@ -1,15 +1,15 @@
 import { resolve } from 'node:path';
 
-import type { Fengsui, FengsuiPlugin } from '@fengsui/core';
-import { createEnvCredentialResolver, createFengsui, toCredentialEnvKey } from '@fengsui/core';
-import { fileConfig } from '@fengsui/config-file';
-import { emailPlugin } from '@fengsui/adapter-email';
+import type { Fengsui, FengsuiPlugin } from '@javen205/fengsui-core';
+import { createEnvCredentialResolver, createFengsui, toCredentialEnvKey } from '@javen205/fengsui-core';
+import { fileConfig } from '@javen205/fengsui-config-file';
+import { emailPlugin } from '@javen205/fengsui-adapter-email';
 import {
   WECOM_BOT_ALIAS_PATTERN,
   wecomBotPlugin,
   type WecomBotDefinition,
   type WecomBotPlugin,
-} from '@fengsui/adapter-wecom-bot';
+} from '@javen205/fengsui-adapter-wecom-bot';
 
 import { createWecomHandlers } from '../wecom/wecom.handlers.js';
 import { createFengsuiLogger } from './nest-logger.js';

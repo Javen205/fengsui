@@ -1,8 +1,8 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import type { AddressInfo } from 'node:net';
 
-import { HttpTransportError } from '@fengsui/http';
-import { createAxiosHttpClient } from '@fengsui/http-axios';
+import { HttpTransportError } from '@javen205/fengsui-http';
+import { createAxiosHttpClient } from '@javen205/fengsui-http-axios';
 import { afterEach, describe, expect, it } from 'vitest';
 
 interface TestServer {

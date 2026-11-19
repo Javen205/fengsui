@@ -1,4 +1,4 @@
-import type { WecomHandlerMap, WecomHandlerResult } from '@fengsui/adapter-wecom-bot';
+import type { WecomHandlerMap, WecomHandlerResult } from '@javen205/fengsui-adapter-wecom-bot';
 
 import { markdownIntro } from '../common/project-content.js';
 

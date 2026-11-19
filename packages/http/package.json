@@ -1,5 +1,5 @@
 {
-  "name": "@fengsui/http",
+  "name": "@javen205/fengsui-http",
   "version": "0.1.0",
   "description": "烽燧 HTTP 契约：HttpClient 接口与传输错误类型，不含任何实现",
   "type": "module",

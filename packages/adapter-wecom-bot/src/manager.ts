@@ -20,7 +20,7 @@ import {
   silentLogger,
   type CredentialResolver,
   type Logger,
-} from '@fengsui/core';
+} from '@javen205/fengsui-core';
 import { WSClient } from '@wecom/aibot-node-sdk';
 import type {
   BaseMessage,

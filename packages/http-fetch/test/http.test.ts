@@ -2,7 +2,7 @@ import { delay, http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 
-import { createFetchHttpClient } from '@fengsui/http-fetch';
+import { createFetchHttpClient } from '@javen205/fengsui-http-fetch';
 
 const server = setupServer();
 

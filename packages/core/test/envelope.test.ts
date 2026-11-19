@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { FengsuiError, parseEnvelope, validateEnvelopeOrThrow } from '@fengsui/core';
+import { FengsuiError, parseEnvelope, validateEnvelopeOrThrow } from '@javen205/fengsui-core';
 
 const validEnvelope = {
   channel: 'email.qq',

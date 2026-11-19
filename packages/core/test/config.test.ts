@@ -8,7 +8,7 @@ import {
   registerAdapter,
   type ConfigProvider,
   type ConfigSnapshot,
-} from '@fengsui/core';
+} from '@javen205/fengsui-core';
 
 import { createFakeAdapter, staticCredentials } from './helpers/fake-adapter';
 

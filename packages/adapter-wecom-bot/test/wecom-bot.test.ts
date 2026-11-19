@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { createFengsui, type CredentialResolver, type Fengsui } from '@fengsui/core';
+import { createFengsui, type CredentialResolver, type Fengsui } from '@javen205/fengsui-core';
 import {
   wecomBotPlugin,
   type WecomInboundMessage,
-} from '@fengsui/adapter-wecom-bot';
+} from '@javen205/fengsui-adapter-wecom-bot';
 
 import { createFakeFactory, eventFrame, textFrame } from './helpers/fake-client';
 

@@ -1,4 +1,4 @@
-import { FengsuiError } from '@fengsui/core';
+import { FengsuiError } from '@javen205/fengsui-core';
 
 interface SmtpErrorLike {
   code?: unknown;

@@ -21,7 +21,7 @@ import { watch as watchFile, type FSWatcher } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { isAbsolute, resolve } from 'node:path';
 
-import { FengsuiError, type ConfigProvider } from '@fengsui/core';
+import { FengsuiError, type ConfigProvider } from '@javen205/fengsui-core';
 
 /** 文件配置来源选项。 */
 export interface FileConfigOptions {

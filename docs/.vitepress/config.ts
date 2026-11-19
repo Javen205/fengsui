@@ -1,4 +1,83 @@
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs';
+import { extname, resolve } from 'node:path';
 import { defineConfig } from 'vitepress';
+import type { Plugin } from 'vite';
+
+const ASSET_MIME_TYPES: Readonly<Record<string, string>> = {
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.ico': 'image/x-icon',
+};
+
+/**
+ * 仓库根目录的 `assets/` 不在 VitePress 的 publicDir 内：
+ * - dev 时直接把 `/assets/**` 请求映射到仓库根目录；
+ * - build 时复制进产物目录，保证文档里写的 `/assets/images/...` 路径不变。
+ */
+function rootAssetsPlugin(): Plugin {
+  let repoRoot = '';
+  let outDir = '';
+  let isSsr = false;
+
+  return {
+    name: 'fengsui-root-assets',
+    configResolved(config) {
+      repoRoot = resolve(config.root, '..');
+      outDir = config.build.outDir;
+      isSsr = Boolean(config.build.ssr);
+    },
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const pathname = (req.url ?? '').split('?')[0];
+        if (!pathname.startsWith('/assets/')) {
+          next();
+          return;
+        }
+
+        const assetsRoot = resolve(repoRoot, 'assets');
+        const file = resolve(repoRoot, `.${decodeURIComponent(pathname)}`);
+        // 防止 ../ 跳出 assets 目录
+        if (!file.startsWith(assetsRoot)) {
+          next();
+          return;
+        }
+
+        try {
+          const body = readFileSync(file);
+          res.setHeader(
+            'Content-Type',
+            ASSET_MIME_TYPES[extname(file).toLowerCase()] ?? 'application/octet-stream',
+          );
+          res.end(body);
+        } catch {
+          next();
+        }
+      });
+    },
+    closeBundle() {
+      if (isSsr || !existsSync(resolve(repoRoot, 'assets'))) {
+        return;
+      }
+      copyDirectory(resolve(repoRoot, 'assets'), resolve(outDir, 'assets'));
+    },
+  };
+}
+
+function copyDirectory(source: string, target: string): void {
+  mkdirSync(target, { recursive: true });
+  for (const entry of readdirSync(source, { withFileTypes: true })) {
+    const from = resolve(source, entry.name);
+    const to = resolve(target, entry.name);
+    if (entry.isDirectory()) {
+      copyDirectory(from, to);
+    } else {
+      copyFileSync(from, to);
+    }
+  }
+}
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -9,8 +88,11 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   srcExclude: ['dev/**'],
+  vite: {
+    plugins: [rootAssetsPlugin()],
+  },
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/assets/images/logo.svg' }],
     ['meta', { name: 'theme-color', content: '#e8590c' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: '烽燧 fengsui' }],
@@ -23,7 +105,7 @@ export default defineConfig({
     ],
   ],
   themeConfig: {
-    logo: '/logo.svg',
+    logo: '/assets/images/logo.svg',
     siteTitle: '烽燧',
     nav: [
       { text: '指南', link: '/guide/introduction' },

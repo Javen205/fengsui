@@ -2,8 +2,8 @@
  * fengsui HTTP 传输契约。
  *
  * 该文件只定义接口与错误类型，不含任何实现；具体实现由传输插件提供：
- * - `@fengsui/http-fetch`：Node 原生 `fetch`
- * - `@fengsui/http-axios`：axios
+ * - `@javen205/fengsui-http-fetch`：Node 原生 `fetch`
+ * - `@javen205/fengsui-http-axios`：axios
  *
  * 契约要点：
  * - GET、POST 以及其他常用方法均支持，方法通过 `HttpRequest.method` 透传给实现。

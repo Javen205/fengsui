@@ -16,7 +16,7 @@ import type {
   InboundHandler,
   InboundMessage,
   Logger,
-} from '@fengsui/core';
+} from '@javen205/fengsui-core';
 import type {
   BaseMessage,
   EventContent,

@@ -1,5 +1,5 @@
-import type { ChannelAdapter, FengsuiPlugin } from '@fengsui/core';
-import { listAdapters, registerAdapter } from '@fengsui/core';
+import type { ChannelAdapter, FengsuiPlugin } from '@javen205/fengsui-core';
+import { listAdapters, registerAdapter } from '@javen205/fengsui-core';
 
 import { createEmailAdapter, createEmailAdapters, type EmailAdapterOptions } from './adapter';
 import { normalizeSmtpError } from './errors';

@@ -29,7 +29,7 @@ ws.on('message.text', async (frame) => { /* ... */ });
 
 ### 1. 渠道只是插件，业务只说意图
 
-核心包 `@fengsui/core` 不依赖 nodemailer、企业微信 SDK 或任何 HTTP 实现。渠道适配器只做三件事：校验渠道选项、把信封归一化、调用供应商接口。业务代码看到的永远是同一封信。
+核心包 `@javen205/fengsui-core` 不依赖 nodemailer、企业微信 SDK 或任何 HTTP 实现。渠道适配器只做三件事：校验渠道选项、把信封归一化、调用供应商接口。业务代码看到的永远是同一封信。
 
 ### 2. 配置给默认值，代码给确定性
 
@@ -62,10 +62,10 @@ ws.on('message.text', async (frame) => { /* ... */ });
 
 已经可用：
 
-- `@fengsui/core`：信封、投递器、能力、错误、日志、凭证、配置、入站、注册表、插件 API；
-- `@fengsui/config-file`：JSON 配置文件来源，支持 `watch`；
-- `@fengsui/adapter-email`：SMTP 邮件，含 8 个邮箱 preset；
-- `@fengsui/adapter-wecom-bot`：企业微信智能机器人，多机器人长连接与入站 handler。
+- `@javen205/fengsui-core`：信封、投递器、能力、错误、日志、凭证、配置、入站、注册表、插件 API；
+- `@javen205/fengsui-config-file`：JSON 配置文件来源，支持 `watch`；
+- `@javen205/fengsui-adapter-email`：SMTP 邮件，含 8 个邮箱 preset；
+- `@javen205/fengsui-adapter-wecom-bot`：企业微信智能机器人，多机器人长连接与入站 handler。
 
 尚未实现：
 

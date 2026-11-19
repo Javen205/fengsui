@@ -1,5 +1,5 @@
 {
-  "name": "@fengsui/adapter-email",
+  "name": "@javen205/fengsui-adapter-email",
   "version": "0.1.0",
   "description": "烽燧邮件渠道插件：SMTP 发送与常见邮箱 preset",
   "type": "module",
@@ -27,7 +27,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@fengsui/core": "workspace:^",
+    "@javen205/fengsui-core": "workspace:^",
     "nodemailer": "^10.5.0",
     "zod": "^4.6.7"
   },

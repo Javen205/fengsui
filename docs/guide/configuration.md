@@ -25,9 +25,9 @@
 把它接入实例：
 
 ```ts
-import { createFengsui, createEnvCredentialResolver } from '@fengsui/core';
-import { fileConfig } from '@fengsui/config-file';
-import { emailPlugin } from '@fengsui/adapter-email';
+import { createFengsui, createEnvCredentialResolver } from '@javen205/fengsui-core';
+import { fileConfig } from '@javen205/fengsui-config-file';
+import { emailPlugin } from '@javen205/fengsui-adapter-email';
 
 const fengsui = createFengsui({
   credentials: createEnvCredentialResolver(),
@@ -217,7 +217,7 @@ fileConfig({
 配置来源只负责“取数据”，不负责校验与合并。接入数据库、Redis 或配置中心，实现同一个 `ConfigProvider` 即可：
 
 ```ts
-import type { ConfigProvider, FengsuiPlugin } from '@fengsui/core';
+import type { ConfigProvider, FengsuiPlugin } from '@javen205/fengsui-core';
 
 interface DbConfigOptions {
   query: () => Promise<unknown>;

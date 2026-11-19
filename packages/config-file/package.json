@@ -1,5 +1,5 @@
 {
-  "name": "@fengsui/config-file",
+  "name": "@javen205/fengsui-config-file",
   "version": "0.1.0",
   "description": "烽燧配置插件：从 JSON 文件读取配置，可选监听文件变化",
   "type": "module",
@@ -27,6 +27,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@fengsui/core": "workspace:^"
+    "@javen205/fengsui-core": "workspace:^"
   }
 }

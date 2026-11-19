@@ -17,8 +17,8 @@ import type {
   ChannelSendOutcome,
   HealthStatus,
   NormalizedMessage,
-} from '@fengsui/core';
-import { FengsuiError } from '@fengsui/core';
+} from '@javen205/fengsui-core';
+import { FengsuiError } from '@javen205/fengsui-core';
 import type { SendMsgBody, TemplateCard } from '@wecom/aibot-node-sdk';
 
 import type { WecomBotManager } from './manager';

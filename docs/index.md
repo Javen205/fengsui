@@ -6,7 +6,7 @@ hero:
   text: 一封信封，万里相传
   tagline: 以信封为中心、插件化的多渠道消息投递框架。业务只说“发什么、给谁”，渠道、凭证、重试与降级交给烽燧。
   image:
-    src: /logo.svg
+    src: /assets/images/logo.svg
     alt: 烽燧
   actions:
     - theme: brand
@@ -38,9 +38,9 @@ features:
 烽燧做的是同一件事。业务代码只负责写“信”，渠道适配器负责“点火”，中间的配置、凭证、重试、降级与观测由框架接力。
 
 ```ts
-import { createEnvCredentialResolver, createFengsui } from '@fengsui/core';
-import { fileConfig } from '@fengsui/config-file';
-import { emailPlugin } from '@fengsui/adapter-email';
+import { createEnvCredentialResolver, createFengsui } from '@javen205/fengsui-core';
+import { fileConfig } from '@javen205/fengsui-config-file';
+import { emailPlugin } from '@javen205/fengsui-adapter-email';
 
 const fengsui = createFengsui({
   credentials: createEnvCredentialResolver(),

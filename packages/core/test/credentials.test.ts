@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { createEnvCredentialResolver, FengsuiError, toCredentialEnvKey } from '@fengsui/core';
+import { createEnvCredentialResolver, FengsuiError, toCredentialEnvKey } from '@javen205/fengsui-core';
 
 describe('EnvCredentialResolver', () => {
   it('maps a credentialsRef to an environment variable name', () => {

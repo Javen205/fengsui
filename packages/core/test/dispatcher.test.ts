@@ -8,7 +8,7 @@ import {
   InMemoryIdempotencyStore,
   registerAdapter,
   type DispatchOptions,
-} from '@fengsui/core';
+} from '@javen205/fengsui-core';
 import { createFakeAdapter, staticCredentials, unusedHttpClient } from './helpers/fake-adapter';
 
 const baseEnvelope = {

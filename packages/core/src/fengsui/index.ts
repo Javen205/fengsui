@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import type { HttpClient } from '@fengsui/http';
+import type { HttpClient } from '@javen205/fengsui-http';
 
 import type { AdapterContext, CredentialResolver, HealthStatus } from '../adapter';
 import type { ChannelCapabilities } from '../capabilities';
@@ -22,7 +22,7 @@ export interface FengsuiConfig {
   /** Required only by adapters that perform HTTP requests. */
   http?: HttpClient;
   /**
-   * 可选配置来源插件（如 `@fengsui/config-file` 的 `fileConfig()`）。
+   * 可选配置来源插件（如 `@javen205/fengsui-config-file` 的 `fileConfig()`）。
    *
    * 注入后，信封可以省略 `channel` / `credentialsRef`，由配置提供默认值；
    * `channelOptions` 会按「配置默认值 → 信封显式值」深合并。

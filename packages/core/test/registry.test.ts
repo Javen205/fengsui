@@ -6,7 +6,7 @@ import {
   listAdapters,
   registerAdapter,
   suggestAdapterIds,
-} from '@fengsui/core';
+} from '@javen205/fengsui-core';
 import { createFakeAdapter } from './helpers/fake-adapter';
 
 describe('adapter registry', () => {

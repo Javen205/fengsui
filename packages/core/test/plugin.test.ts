@@ -6,7 +6,7 @@ import {
   type AdapterContext,
   type ChannelAdapter,
   type FengsuiPlugin,
-} from '@fengsui/core';
+} from '@javen205/fengsui-core';
 
 import { createFakeAdapter, staticCredentials } from './helpers/fake-adapter';
 

@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { Inject, Injectable } from '@nestjs/common';
 import ejs from 'ejs';
 
-import { toCredentialEnvKey } from '@fengsui/core';
-import type { DispatchResult, EnvelopeAttachment, EnvelopeContent } from '@fengsui/core';
+import { toCredentialEnvKey } from '@javen205/fengsui-core';
+import type { DispatchResult, EnvelopeAttachment, EnvelopeContent } from '@javen205/fengsui-core';
 
 import {
   AUTHOR,

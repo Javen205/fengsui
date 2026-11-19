@@ -8,13 +8,13 @@ const packageSrc = (name: string): string =>
 export default defineConfig({
   resolve: {
     alias: {
-      '@fengsui/core': packageSrc('core'),
-      '@fengsui/http': packageSrc('http'),
-      '@fengsui/http-fetch': packageSrc('http-fetch'),
-      '@fengsui/http-axios': packageSrc('http-axios'),
-      '@fengsui/config-file': packageSrc('config-file'),
-      '@fengsui/adapter-email': packageSrc('adapter-email'),
-      '@fengsui/adapter-wecom-bot': packageSrc('adapter-wecom-bot'),
+      '@javen205/fengsui-core': packageSrc('core'),
+      '@javen205/fengsui-http': packageSrc('http'),
+      '@javen205/fengsui-http-fetch': packageSrc('http-fetch'),
+      '@javen205/fengsui-http-axios': packageSrc('http-axios'),
+      '@javen205/fengsui-config-file': packageSrc('config-file'),
+      '@javen205/fengsui-adapter-email': packageSrc('adapter-email'),
+      '@javen205/fengsui-adapter-wecom-bot': packageSrc('adapter-wecom-bot'),
     },
   },
   test: {

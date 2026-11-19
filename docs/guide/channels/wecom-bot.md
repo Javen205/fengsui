@@ -7,12 +7,12 @@
 ## 安装与启用
 
 ```bash
-pnpm add @fengsui/core @fengsui/adapter-wecom-bot
+pnpm add @javen205/fengsui-core @javen205/fengsui-adapter-wecom-bot
 ```
 
 ```ts
-import { createFengsui, createEnvCredentialResolver } from '@fengsui/core';
-import { wecomBotPlugin } from '@fengsui/adapter-wecom-bot';
+import { createFengsui, createEnvCredentialResolver } from '@javen205/fengsui-core';
+import { wecomBotPlugin } from '@javen205/fengsui-adapter-wecom-bot';
 
 const wecom = wecomBotPlugin({
   bots: [

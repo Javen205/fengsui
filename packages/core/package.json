@@ -1,5 +1,5 @@
 {
-  "name": "@fengsui/core",
+  "name": "@javen205/fengsui-core",
   "version": "0.1.0",
   "description": "烽燧核心框架：信封、能力匹配、校验、路由、投递、插件与注册表",
   "type": "module",
@@ -27,7 +27,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@fengsui/http": "workspace:^",
+    "@javen205/fengsui-http": "workspace:^",
     "zod": "^4.6.7"
   }
 }

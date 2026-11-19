@@ -10,8 +10,8 @@ import type {
   ChannelSendOutcome,
   NormalizedMessage,
   ResolvedCredential,
-} from '@fengsui/core';
-import { FengsuiError } from '@fengsui/core';
+} from '@javen205/fengsui-core';
+import { FengsuiError } from '@javen205/fengsui-core';
 import { normalizeSmtpError } from './errors';
 import {
   EMAIL_SMTP_CHANNEL,

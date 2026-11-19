@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 
-import type { LogMeta, Logger as FengsuiLogger } from '@fengsui/core';
+import type { LogMeta, Logger as FengsuiLogger } from '@javen205/fengsui-core';
 
 /**
  * 把烽燧的结构化日志接到 Nest 的 Logger 上。

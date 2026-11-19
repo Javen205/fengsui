@@ -13,7 +13,7 @@
 └──────────────────────┬───────────────────────┘
                        │
 ┌──────────────────────▼───────────────────────┐
-│              @fengsui/core（核心）            │
+│              @javen205/fengsui-core（核心）            │
 │  信封校验 · 配置解析 · 能力协商 · 投递器       │
 │  重试/超时/取消 · 幂等 · 回执 · 入站路由       │
 └───────┬──────────────────────────┬───────────┘
@@ -24,13 +24,13 @@
 └───────┬──────────┘      └────────────────────┘
         │ 使用传输契约
 ┌───────▼──────────────────────────────────────┐
-│  @fengsui/http 契约 → http-fetch / http-axios │
+│  @javen205/fengsui-http 契约 → http-fetch / http-axios │
 └──────────────────────────────────────────────┘
 ```
 
 一条最关键的规则：**依赖只向下，核心永不知道具体渠道。**
 
-`@fengsui/core` 不依赖 nodemailer，不依赖企业微信 SDK，也不依赖 axios。它只定义契约，渠道以插件形式接入。删掉所有渠道插件，核心依然能编译、能测试。
+`@javen205/fengsui-core` 不依赖 nodemailer，不依赖企业微信 SDK，也不依赖 axios。它只定义契约，渠道以插件形式接入。删掉所有渠道插件，核心依然能编译、能测试。
 
 ## 目录结构
 
@@ -70,13 +70,13 @@ fengsui/
 
 | 包 | 角色 | 关键导出 |
 | --- | --- | --- |
-| `@fengsui/core` | 框架本体，不含任何渠道实现 | `createFengsui`、`dispatchEnvelope`、`FengsuiError`、`ChannelAdapter`、`ConfigProvider`、`InboundRouter` |
-| `@fengsui/http` | 传输契约 | `HttpClient`、`HttpResponse`、`HttpTransportError` |
-| `@fengsui/http-fetch` | 原生 fetch 传输实现 | `createFetchClient()` |
-| `@fengsui/http-axios` | axios 传输实现 | `createAxiosClient()` |
-| `@fengsui/config-file` | 文件配置来源 | `fileConfig()` |
-| `@fengsui/adapter-email` | SMTP 邮件渠道 | `emailPlugin()`、`createEmailAdapter()`、`EMAIL_PRESETS` |
-| `@fengsui/adapter-wecom-bot` | 企业微信机器人渠道 | `wecomBotPlugin()`、`WecomBotManager` |
+| `@javen205/fengsui-core` | 框架本体，不含任何渠道实现 | `createFengsui`、`dispatchEnvelope`、`FengsuiError`、`ChannelAdapter`、`ConfigProvider`、`InboundRouter` |
+| `@javen205/fengsui-http` | 传输契约 | `HttpClient`、`HttpResponse`、`HttpTransportError` |
+| `@javen205/fengsui-http-fetch` | 原生 fetch 传输实现 | `createFetchClient()` |
+| `@javen205/fengsui-http-axios` | axios 传输实现 | `createAxiosClient()` |
+| `@javen205/fengsui-config-file` | 文件配置来源 | `fileConfig()` |
+| `@javen205/fengsui-adapter-email` | SMTP 邮件渠道 | `emailPlugin()`、`createEmailAdapter()`、`EMAIL_PRESETS` |
+| `@javen205/fengsui-adapter-wecom-bot` | 企业微信机器人渠道 | `wecomBotPlugin()`、`WecomBotManager` |
 
 ::: tip 为什么 HTTP 要单独抽契约
 有的团队用 axios，有的用 fetch，有的需要统一注入代理、重试或链路头。核心只依赖 `HttpClient` 接口，适配器调用 `requireHttp(ctx)` 取得实现，宿主可以自由替换，不影响渠道代码。
@@ -87,14 +87,14 @@ fengsui/
 ```text
 业务代码
   ↓
-@fengsui/core           ← 只依赖契约，不依赖实现
+@javen205/fengsui-core           ← 只依赖契约，不依赖实现
   ↓ 依赖
-@fengsui/http           ← 纯类型与错误契约
+@javen205/fengsui-http           ← 纯类型与错误契约
   ↑ 实现
 http-fetch / http-axios
 
-@fengsui/adapter-*      → 依赖 core + http 契约 + 各自的供应商 SDK
-@fengsui/config-file    → 只依赖 core 的 ConfigProvider 契约
+@javen205/fengsui-adapter-*      → 依赖 core + http 契约 + 各自的供应商 SDK
+@javen205/fengsui-config-file    → 只依赖 core 的 ConfigProvider 契约
 ```
 
 三条硬规则：

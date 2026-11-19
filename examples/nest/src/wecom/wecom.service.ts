@@ -7,8 +7,8 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 
-import type { DispatchResult } from '@fengsui/core';
-import type { WecomBotStatus } from '@fengsui/adapter-wecom-bot';
+import type { DispatchResult } from '@javen205/fengsui-core';
+import type { WecomBotStatus } from '@javen205/fengsui-adapter-wecom-bot';
 
 import { AUTHOR, INTRO, PROJECTS, markdownIntro } from '../common/project-content.js';
 import {

@@ -1,4 +1,4 @@
-import type { HttpClient } from '@fengsui/http';
+import type { HttpClient } from '@javen205/fengsui-http';
 
 import { FengsuiError } from '../errors';
 import type { AdapterContext } from './types';

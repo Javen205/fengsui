@@ -7,7 +7,7 @@
  *
  * 所有错误统一包装成 `FengsuiError`，让投递器按 `retryable` 决定是否重试。
  */
-import { FengsuiError } from '@fengsui/core';
+import { FengsuiError } from '@javen205/fengsui-core';
 import type { WsFrame } from '@wecom/aibot-node-sdk';
 
 /** 鉴权类错误码：凭证错误或失效，重试无意义。 */

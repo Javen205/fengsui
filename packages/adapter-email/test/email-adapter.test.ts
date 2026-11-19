@@ -10,13 +10,13 @@ import {
   registerAdapter,
   silentLogger,
   type CredentialResolver,
-} from '@fengsui/core';
+} from '@javen205/fengsui-core';
 import {
   createEmailAdapter,
   EMAIL_CHANNEL_IDS,
   EMAIL_PRESETS,
   resolveEmailTransport,
-} from '@fengsui/adapter-email';
+} from '@javen205/fengsui-adapter-email';
 import { decodeRfc2047, flattenBodyText, parseMessage, parseMimeEntity } from './helpers/mime';
 import { startTestSmtpServer, type TestSmtpServer } from './helpers/smtp-server';
 

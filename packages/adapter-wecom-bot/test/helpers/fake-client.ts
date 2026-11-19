@@ -17,7 +17,7 @@ import type {
 } from '@wecom/aibot-node-sdk';
 import { EventType } from '@wecom/aibot-node-sdk';
 
-import type { WecomClient, WecomClientConfig, WecomClientFactory } from '@fengsui/adapter-wecom-bot';
+import type { WecomClient, WecomClientConfig, WecomClientFactory } from '@javen205/fengsui-adapter-wecom-bot';
 
 type Listener = (...args: never[]) => void;
 

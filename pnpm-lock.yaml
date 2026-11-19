@@ -205,16 +205,16 @@ importers:
 
   examples/nest:
     dependencies:
-      '@fengsui/adapter-email':
+      '@javen205/fengsui-adapter-email':
         specifier: workspace:^
         version: link:../../packages/adapter-email
-      '@fengsui/adapter-wecom-bot':
+      '@javen205/fengsui-adapter-wecom-bot':
         specifier: workspace:^
         version: link:../../packages/adapter-wecom-bot
-      '@fengsui/config-file':
+      '@javen205/fengsui-config-file':
         specifier: workspace:^
         version: link:../../packages/config-file
-      '@fengsui/core':
+      '@javen205/fengsui-core':
         specifier: workspace:^
         version: link:../../packages/core
       '@nestjs/common':
@@ -266,7 +266,7 @@ importers:
 
   packages/adapter-email:
     dependencies:
-      '@fengsui/core':
+      '@javen205/fengsui-core':
         specifier: workspace:^
         version: link:../core
       nodemailer:
@@ -282,7 +282,7 @@ importers:
 
   packages/adapter-wecom-bot:
     dependencies:
-      '@fengsui/core':
+      '@javen205/fengsui-core':
         specifier: workspace:^
         version: link:../core
       '@wecom/aibot-node-sdk':
@@ -294,13 +294,13 @@ importers:
 
   packages/config-file:
     dependencies:
-      '@fengsui/core':
+      '@javen205/fengsui-core':
         specifier: workspace:^
         version: link:../core
 
   packages/core:
     dependencies:
-      '@fengsui/http':
+      '@javen205/fengsui-http':
         specifier: workspace:^
         version: link:../http
       zod:
@@ -311,7 +311,7 @@ importers:
 
   packages/http-axios:
     dependencies:
-      '@fengsui/http':
+      '@javen205/fengsui-http':
         specifier: workspace:^
         version: link:../http
     devDependencies:
@@ -321,7 +321,7 @@ importers:
 
   packages/http-fetch:
     dependencies:
-      '@fengsui/http':
+      '@javen205/fengsui-http':
         specifier: workspace:^
         version: link:../http
 

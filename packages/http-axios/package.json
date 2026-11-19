@@ -1,5 +1,5 @@
 {
-  "name": "@fengsui/http-axios",
+  "name": "@javen205/fengsui-http-axios",
   "version": "0.1.0",
   "description": "烽燧 HTTP 传输插件：基于 axios 的 HttpClient 实现",
   "type": "module",
@@ -27,7 +27,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@fengsui/http": "workspace:^"
+    "@javen205/fengsui-http": "workspace:^"
   },
   "peerDependencies": {
     "axios": "^1.7.0"

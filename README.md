@@ -1,43 +1,30 @@
-# 烽燧（fengsui）
+<div align="center">
+  <img src="assets/images/logo.svg" alt="烽燧 logo" width="112" />
 
-统一消息发送工具。核心只保留框架，HTTP 传输与渠道都以插件形式提供：
+  <h1>烽燧 · fengsui</h1>
 
-- `@fengsui/core`：统一信封、能力匹配、校验、路由、重试/超时/fan-out、凭证解析、幂等存储与插件 API。
-- `@fengsui/http`：`HttpClient` 契约，不含实现。
-- `@fengsui/http-fetch`：基于 Node 原生 `fetch` 的默认传输。
-- `@fengsui/http-axios`：基于 `axios` 的传输，`axios` 为 peer 依赖。
-- `@fengsui/config-file`：从 JSON 文件读取配置，发送时可省略渠道与凭证等默认值，支持文件变更热刷新。
-- `@fengsui/adapter-email`：邮件插件，含通用 `email.smtp` 与 `email.qq`、`email.gmail`、`email.163`、`email.126`、`email.aliyun`、`email.sina`、`email.outlook`、`email.m365` 八个 preset。
-- `@fengsui/adapter-wecom-bot`：企业微信智能机器人插件，支持多机器人、WebSocket 长连接、入站 handler 与收发回复。
+  <p><strong>一封信封，万里相传。</strong></p>
 
-CLI 与 MCP Server 尚未实现；IM、短信、微信公众号渠道尚未实现。
+  <p><sub>One envelope, every channel.</sub></p>
 
-## 已支持渠道
+  <p>以信封为中心、插件化的多渠道消息投递框架</p>
 
-| Channel                   | 传输                            | 认证                           | 说明                                                             |
-| ------------------------- | ------------------------------- | ------------------------------ | ---------------------------------------------------------------- |
-| `email.smtp`              | SMTP                            | 密码/授权码（`user` + `pass`） | 必须通过 `channelOptions.transport.host` 指定服务器              |
-| `email.qq`                | smtp.qq.com:465                 | 授权码                         | 需先在邮箱开启 SMTP 服务                                         |
-| `email.gmail`             | smtp.gmail.com:465              | OAuth2                         | 凭证需 `accessToken` 或 `clientId`/`clientSecret`/`refreshToken` |
-| `email.163` / `email.126` | smtp.163.com / smtp.126.com:465 | 授权码                         | 需开启 SMTP 并完成短信校验                                       |
-| `email.aliyun`            | smtp.qiye.aliyun.com:465        | 三方客户端安全密码             | 需管理员放开三方登录                                             |
-| `email.sina`              | smtp.sina.com:465               | 密码                           | 需勾选 SMTP 身份验证                                             |
-| `email.outlook`           | smtp-mail.outlook.com:587       | OAuth2                         | STARTTLS                                                         |
-| `email.m365`              | smtp.office365.com:587          | OAuth2                         | 需管理员开启 SMTP AUTH                                           |
-| `wecom.bot.<alias>`       | WebSocket 长连接                | `botId` + `secret`             | 企业微信智能机器人；每个机器人一个别名与一条连接                 |
+  <p>
+    <a href="https://www.npmjs.com/package/@javen205/fengsui-core"><img src="https://img.shields.io/npm/v/@javen205/fengsui-core?label=core&color=e8590c" alt="npm core" /></a>
+    <a href="https://www.npmjs.com/package/@javen205/fengsui-adapter-email"><img src="https://img.shields.io/npm/v/@javen205/fengsui-adapter-email?label=adapter-email&color=e8590c" alt="npm adapter-email" /></a>
+    <a href="https://www.npmjs.com/package/@javen205/fengsui-adapter-wecom-bot"><img src="https://img.shields.io/npm/v/@javen205/fengsui-adapter-wecom-bot?label=adapter-wecom-bot&color=e8590c" alt="npm adapter-wecom-bot" /></a>
+    <img src="https://img.shields.io/badge/node-%3E%3D22-3c873a" alt="node >=22" />
+  </p>
+</div>
+
+## 项目简介
+
+两千年前，戍卒在烽火台上点燃柴薪，信号沿着山脊一座座传下去。点火的人不需要知道下一座台子用什么燃料，只需要表达一件事：**有消息，往哪里传。**
+
+烽燧把这件事搬进代码里。业务只写一封信封：
 
 ```ts
-import { createEnvCredentialResolver, createFengsui } from '@fengsui/core';
-import { createFetchHttpClient } from '@fengsui/http-fetch';
-import { emailPlugin } from '@fengsui/adapter-email';
-
-const fengsui = createFengsui({
-  http: createFetchHttpClient(),
-  credentials: createEnvCredentialResolver(),
-  plugins: [emailPlugin()],
-});
-
-const receipt = await fengsui.send({
+await fengsui.send({
   channel: 'email.qq',
   action: 'send',
   target: { to: ['ops@example.com'] },
@@ -46,154 +33,89 @@ const receipt = await fengsui.send({
 });
 ```
 
-邮件凭证通过环境变量 `FENGSUI_CRED_TENANT_A_QQ_MAIN` 提供（JSON 对象或单值），支持字段 `user`、`pass`、`clientId`、`clientSecret`、`refreshToken`、`accessToken`。
+至于是 SMTP、WebSocket 还是 HTTP，凭证从哪里取，失败了怎么重试、发不出去怎么降级——交给框架。
 
-## 配置默认值
+- **一封信封，统一表达**：`channel`、`action`、`target`、`content`、`meta` 五个字段描述一次投递，业务代码不关心底层协议。
+- **渠道即插件**：核心不含任何渠道 SDK。装邮件才有 `nodemailer`，装企业微信才有长连接，按需引入、互不牵连。
+- **配置给默认值**：默认渠道、凭证引用、发件人、项目继承链都可以预先配置，发送时只写业务字段。
+- **失败是一等公民**：`validation` / `auth` / `network` / `rate_limited` 统一错误码，可重试标记、逐目标回执、幂等与 dry-run 开箱即用。
 
-发送时不必重复填写渠道与凭证。把默认值写进配置文件，信封只保留业务字段：
+目前已支持**邮件**（通用 SMTP 与 QQ、Gmail、163、126、阿里云、新浪、Outlook、Microsoft 365 八个 preset）与**企业微信智能机器人**（多机器人长连接、入站 handler、主动推送）。
 
-```json
-{
-  "version": 1,
-  "defaults": {
-    "channel": "email.qq",
-    "channelOptions": { "timeoutMs": 10000 }
-  },
-  "projects": {
-    "billing": {
-      "credentialsRef": "billing/qq-main",
-      "channelOptions": { "from": "noreply@example.com" }
-    }
-  }
-}
+完整的安装、配置与渠道用法见 [文档](docs/guide/getting-started.md)。
+
+## 设计架构
+
+核心只做框架，渠道与传输都以插件形式接入：
+
+```mermaid
+flowchart LR
+  App[业务代码] -->|Envelope| Core[fengsui-core]
+  Core --> Registry[Adapter Registry]
+  Registry --> Email[adapter-email]
+  Registry --> Wecom[adapter-wecom-bot]
+  Email --> SMTP[(SMTP)]
+  Wecom --> WS[(企业微信 WebSocket)]
+  Core -.-> HTTP[HttpClient 契约]
+  HTTP -.-> Fetch[http-fetch]
+  HTTP -.-> Axios[http-axios]
+  Core -.-> Config[config-file]
 ```
 
-```ts
-import { createEnvCredentialResolver, createFengsui } from '@fengsui/core';
-import { fileConfig } from '@fengsui/config-file';
-import { emailPlugin } from '@fengsui/adapter-email';
+- **core**：信封校验、能力协商、路由、重试/超时/fan-out、凭证解析、幂等、插件 API。
+- **http**：只定义 `HttpClient` 契约；`http-fetch` 与 `http-axios` 是两种可互换实现。
+- **config-file**：从 JSON 读取默认渠道、凭证引用与项目继承链，支持文件变更热刷新。
+- **adapter-\***：渠道实现。新增渠道新建 `packages/adapter-*`，不在 core 内加实现。
 
-const fengsui = createFengsui({
-  credentials: createEnvCredentialResolver(),
-  config: fileConfig({ path: './fengsui.config.json', watch: true }),
-  plugins: [emailPlugin()],
-});
+分层细节、一封信的完整旅程与设计取舍见 [目录与架构](docs/guide/architecture.md)，扩展方式见 [如何扩展](docs/guide/extending.md)。
 
-await fengsui.send({
-  action: 'send',
-  meta: { projectId: 'billing' },
-  target: { to: ['ops@example.com'] },
-  content: { subject: '构建完成', text: '构建 #1234 已通过' },
-});
-```
+## 如何开发
 
-优先级从低到高：preset → 适配器构造参数 → 配置 `defaults` → 项目继承链 → `channels.<channelId>` → 信封显式字段。配置只允许 `credentialsRef`，禁止内联密钥；来源可替换，SQLite / MySQL / Redis 后续按同一个 `ConfigProvider` 契约提供。
-
-换传输只改一行注入：
-
-```ts
-import { createAxiosHttpClient } from '@fengsui/http-axios';
-// http: createFetchHttpClient() → http: createAxiosHttpClient()
-```
-
-## 企业微信智能机器人
-
-每个机器人对应一个渠道 `wecom.bot.<alias>`。`alias` 只允许小写字母、数字与连字符，`botId` 写在代码里，`secret` 通过 `credentialsRef` 解析（默认 `wecom/<alias>`）：
-
-```bash
-FENGSUI_CRED_WECOM_SUPPORT='{"secret":"..."}'
-```
-
-```ts
-import { createEnvCredentialResolver, createFengsui } from '@fengsui/core';
-import { wecomBotPlugin } from '@fengsui/adapter-wecom-bot';
-
-const plugin = wecomBotPlugin({
-  bots: [
-    { alias: 'support', botId: 'support-bot-id' },
-    { alias: 'sales', botId: 'sales-bot-id' },
-  ],
-  handlers: {
-    // 返回 { markdown } 时插件自动回复；返回 { handled: true } 短路后续 handler
-    'message.text': async ({ message }) => ({ markdown: `收到：${message.text ?? ''}` }),
-    'message.image': async ({ message, reply }) => {
-      const image = message.images?.[0];
-      if (image !== undefined) {
-        const file = await reply.download(image.url, image.aesKey);
-        // 转业务逻辑：OCR、存档、审核……
-      }
-    },
-    'event.enter_chat': async ({ reply }) => {
-      await reply.welcome({ msgtype: 'text', text: { content: '你好，有什么可以帮你？' } });
-      return { handled: true };
-    },
-  },
-});
-
-const fengsui = createFengsui({
-  credentials: createEnvCredentialResolver(),
-  plugins: [plugin],
-});
-
-await fengsui.start(); // 建连；只发不收时也可省略，首次 send() 会懒连接
-plugin.bots.status('support'); // 连接状态、最近认证时间、重连次数与最后错误
-
-await fengsui.send({
-  channel: 'wecom.bot.support',
-  action: 'send',
-  target: { chatId: 'userid-or-chatid' },
-  content: { markdown: '**构建成功**' },
-});
-
-await fengsui.close(); // 断开全部连接
-```
-
-- **入站事件**：`message.text` / `message.image` / `message.mixed` / `message.voice` / `message.file` / `message.video`、`event.enter_chat`、`event.template_card_event`、`event.feedback_event`、`event.disconnected_event`，以及兜底 `*`。
-- **回复 API**：`text`、`markdown`、`stream`、`welcome`、`card`、`streamWithCard`、`updateCard`、`media`、`upload`、`sendTo`、`download`。
-- **出站限制**：主动推送只支持 Markdown 与模板卡片；卡片通过 `channelOptions.card` 传入。文本按 Markdown 发送。
-- **去重**：默认 10 分钟窗口（`dedupeTtlMs`），按渠道 + `msgid` 去重。
-- **单连接约束**：一个 `botId` 只能有一条长连接；多副本部署时只让一个副本调用 `fengsui.start()`，或引入选主。
-
-## 入口
-
-| 包 | 作用 |
-| --- | --- |
-| `@fengsui/core` | 信封、校验、投递、注册表、插件 API、`createFengsui()` |
-| `@fengsui/http` | `HttpClient` 契约与 `HttpTransportError` |
-| `@fengsui/http-fetch` | 原生 `fetch` 实现 |
-| `@fengsui/http-axios` | `axios` 实现 |
-| `@fengsui/config-file` | JSON 配置文件来源（可选 watch） |
-| `@fengsui/adapter-email` | 邮件渠道插件 |
-| `@fengsui/adapter-wecom-bot` | 企业微信智能机器人插件 |
-
-## 命令
+环境要求：Node.js >= 22、pnpm。
 
 ```bash
 pnpm install
-pnpm build
-pnpm test
-pnpm lint
-pnpm typecheck
+pnpm build      # 构建全部 workspace 包
+pnpm test       # 运行 Vitest 用例
+pnpm lint       # ESLint
+pnpm typecheck  # TypeScript 类型检查
+pnpm docs:dev   # 本地预览文档站
 ```
 
-## 目录
+目录：
 
 ```text
 packages/
-├── core/            # @fengsui/core：envelope / adapter / credentials / registry / idempotency / dispatcher / plugin / fengsui
-├── http/            # @fengsui/http：HttpClient 契约
-├── http-fetch/      # @fengsui/http-fetch：fetch 实现
-├── http-axios/      # @fengsui/http-axios：axios 实现
-├── config-file/     # @fengsui/config-file：JSON 配置来源与文件监听
-├── adapter-email/   # @fengsui/adapter-email：nodemailer 邮件 adapter、preset、错误映射
-└── adapter-wecom-bot/ # @fengsui/adapter-wecom-bot：企业微信机器人长连接、入站路由与回复器
-docs/                # 设计方案与调研
+├── core/               # 信封、投递、凭证、配置、幂等、插件 API
+├── http/               # HttpClient 契约
+├── http-fetch/         # 原生 fetch 实现
+├── http-axios/         # axios 实现
+├── config-file/        # JSON 配置来源与文件监听
+├── adapter-email/      # 邮件渠道
+└── adapter-wecom-bot/  # 企业微信机器人
+docs/                   # VitePress 文档
+examples/               # 可运行示例
 ```
 
-## 工程约定
+工程约定：
 
-- **模块解析用 Bundler**：源码由 tsup 打包为自包含的 ESM/CJS 产物，不产生相对 import，因此不需要 NodeNext 的 `.js` 后缀约束；类型检查与打包语义保持一致。
-- **多包 workspace**：根 `package.json` 为 private，不对外发布；各包独立 `package.json`/`tsconfig`/`tsup.config`，内部依赖统一 `workspace:^`。
-- **依赖收口**：`zod` 只在 core，`nodemailer` 只在邮件插件，`axios` 只作为 HTTP axios 插件的 peer；不装插件就不会引入对应依赖。
-- **测试**：`vitest.config.ts` 统一收集 `packages/*/test`，通过 alias 直接指向各包 `src`，无需先构建。
-- **插件优先**：新增渠道或传输时新建 `packages/adapter-*` / `packages/http-*`，不在 core 内加实现。
+- **模块解析用 Bundler**：源码由 tsup 打包为自包含的 ESM/CJS 产物，无需 NodeNext 的 `.js` 后缀；类型检查与打包语义保持一致。
+- **多包 workspace**：根 `package.json` 为 private，各包独立 `package.json` / `tsconfig` / `tsup.config`，内部依赖统一 `workspace:^`。
+- **依赖收口**：`nodemailer` 只在邮件插件，`@wecom/aibot-node-sdk` 只在企业微信插件，`axios` 只作为 HTTP axios 插件的 peer。
+- **测试**：`vitest.config.ts` 统一收集 `packages/*/test`，通过 alias 指向各包 `src`，无需先构建。
+
+更多开发细节见 [快速开始 · 在仓库中开发](docs/guide/getting-started.md#在仓库中开发)。
+
+## 如何贡献
+
+欢迎 Issue 与 Pull Request。
+
+1. 先搜一遍 [Issues](https://github.com/Javen205/fengsui/issues)，避免重复；新功能建议先开 Issue 对齐方案。
+2. Fork 仓库，从 `dev` 切出分支：`feat/xxx`、`fix/xxx`、`docs/xxx`，PR 也请提交到 `dev`。
+   `dev` 是默认开发分支，`master` 只用于发布，不接受直接提交。
+3. 提交前确保 `pnpm lint`、`pnpm typecheck`、`pnpm test` 全部通过。
+4. 新增渠道或传输请放到 `packages/adapter-*` / `packages/http-*`，不要在 core 中加入具体实现。
+5. 提交信息遵循 Conventional Commits（`feat:`、`fix:`、`docs:`、`refactor:` 等）。
+6. PR 描述写清：要解决的问题、实现思路、验证方式；涉及行为的改动同步更新 `docs/guide`。
+
+小改动（错别字、文档、注释）可以直接提 PR，不必先开 Issue。

@@ -4,7 +4,7 @@
  * 只做纯数据映射，不产生 IO；归一化后的 `raw` 保留完整原始帧，
  * 业务代码需要平台特有字段时可直接读取。
  */
-import type { InboundChat, InboundMedia, InboundQuote, InboundSender } from '@fengsui/core';
+import type { InboundChat, InboundMedia, InboundQuote, InboundSender } from '@javen205/fengsui-core';
 import type {
   EventMessage,
   MixedContent,

@@ -36,8 +36,8 @@ pnpm test
 ```json
 {
   "dependencies": {
-    "@fengsui/core": "workspace:^",
-    "@fengsui/adapter-email": "workspace:^"
+    "@javen205/fengsui-core": "workspace:^",
+    "@javen205/fengsui-adapter-email": "workspace:^"
   }
 }
 ```
@@ -60,8 +60,8 @@ export FENGSUI_CRED_QQ_MAIN='{"user":"bot@qq.com","pass":"你的 SMTP 授权码"
 ### 2. 创建实例
 
 ```ts
-import { createEnvCredentialResolver, createFengsui } from '@fengsui/core';
-import { emailPlugin } from '@fengsui/adapter-email';
+import { createEnvCredentialResolver, createFengsui } from '@javen205/fengsui-core';
+import { emailPlugin } from '@javen205/fengsui-adapter-email';
 
 const fengsui = createFengsui({
   credentials: createEnvCredentialResolver(),
@@ -140,7 +140,7 @@ dry-run 会完成信封校验、渠道解析、能力匹配与降级规划，但
 ```
 
 ```ts
-import { fileConfig } from '@fengsui/config-file';
+import { fileConfig } from '@javen205/fengsui-config-file';
 
 const fengsui = createFengsui({
   credentials: createEnvCredentialResolver(),

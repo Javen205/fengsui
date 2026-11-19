@@ -9,12 +9,12 @@
 邮件渠道是独立包，按需安装：
 
 ```bash
-pnpm add @fengsui/core @fengsui/adapter-email
+pnpm add @javen205/fengsui-core @javen205/fengsui-adapter-email
 ```
 
 ```ts
-import { createFengsui, createEnvCredentialResolver } from '@fengsui/core';
-import { emailPlugin } from '@fengsui/adapter-email';
+import { createFengsui, createEnvCredentialResolver } from '@javen205/fengsui-core';
+import { emailPlugin } from '@javen205/fengsui-adapter-email';
 
 const fengsui = createFengsui({
   credentials: createEnvCredentialResolver(),

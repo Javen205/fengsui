@@ -2,13 +2,13 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@fengsui/core": ["./packages/core/src/index.ts"],
-      "@fengsui/http": ["./packages/http/src/index.ts"],
-      "@fengsui/http-fetch": ["./packages/http-fetch/src/index.ts"],
-      "@fengsui/http-axios": ["./packages/http-axios/src/index.ts"],
-      "@fengsui/config-file": ["./packages/config-file/src/index.ts"],
-      "@fengsui/adapter-email": ["./packages/adapter-email/src/index.ts"],
-      "@fengsui/adapter-wecom-bot": ["./packages/adapter-wecom-bot/src/index.ts"]
+      "@javen205/fengsui-core": ["./packages/core/src/index.ts"],
+      "@javen205/fengsui-http": ["./packages/http/src/index.ts"],
+      "@javen205/fengsui-http-fetch": ["./packages/http-fetch/src/index.ts"],
+      "@javen205/fengsui-http-axios": ["./packages/http-axios/src/index.ts"],
+      "@javen205/fengsui-config-file": ["./packages/config-file/src/index.ts"],
+      "@javen205/fengsui-adapter-email": ["./packages/adapter-email/src/index.ts"],
+      "@javen205/fengsui-adapter-wecom-bot": ["./packages/adapter-wecom-bot/src/index.ts"]
     }
   },
   "include": [

@@ -1,5 +1,5 @@
 /**
- * `@fengsui/core` 公共入口。
+ * `@javen205/fengsui-core` 公共入口。
  *
  * 只导出框架能力：信封、能力与回执类型、统一错误、日志、适配器契约、
  * 凭证解析、配置插件契约、入站路由、注册表、幂等、投递器、插件 API
@@ -28,4 +28,4 @@ export type {
   HttpResponse,
   HttpTransportError,
   HttpTransportErrorKind,
-} from '@fengsui/http';
+} from '@javen205/fengsui-http';

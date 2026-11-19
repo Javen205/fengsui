@@ -1,5 +1,5 @@
 {
-  "name": "@fengsui/example-nest",
+  "name": "@javen205/fengsui-example-nest",
   "version": "0.1.0",
   "private": true,
   "description": "烽燧 × NestJS 12 示例：邮件纯文本 / HTML 模板 / 附件与企业微信机器人",
@@ -16,10 +16,10 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@fengsui/adapter-email": "workspace:^",
-    "@fengsui/adapter-wecom-bot": "workspace:^",
-    "@fengsui/config-file": "workspace:^",
-    "@fengsui/core": "workspace:^",
+    "@javen205/fengsui-adapter-email": "workspace:^",
+    "@javen205/fengsui-adapter-wecom-bot": "workspace:^",
+    "@javen205/fengsui-config-file": "workspace:^",
+    "@javen205/fengsui-core": "workspace:^",
     "@nestjs/common": "^12.5.1",
     "@nestjs/core": "^12.5.1",
     "@nestjs/platform-express": "^12.5.1",

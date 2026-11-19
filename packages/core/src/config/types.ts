@@ -8,7 +8,7 @@
  * - **整份快照**：Provider 每次 `load()` 返回完整配置，而不是按 key 查询。
  *   这样核心可以做严格的 schema 校验、层级合并与缓存，Provider 只负责「取数据」。
  * - **来源无关**：文件、SQLite、MySQL、Redis、配置中心都实现同一个 `ConfigProvider`，
- *   核心不感知来源；本轮只提供 `@fengsui/config-file`。
+ *   核心不感知来源；本轮只提供 `@javen205/fengsui-config-file`。
  * - **凭证不进配置**：配置只能写 `credentialsRef`，密钥仍由 `CredentialResolver`
  *   从环境变量、Vault 等安全来源解析。
  */

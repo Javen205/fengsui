@@ -1,5 +1,5 @@
 {
-  "name": "@fengsui/adapter-wecom-bot",
+  "name": "@javen205/fengsui-adapter-wecom-bot",
   "version": "0.1.0",
   "description": "烽燧企业微信智能机器人插件：多机器人长连接、消息收发与事件路由",
   "type": "module",
@@ -27,7 +27,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@fengsui/core": "workspace:^",
+    "@javen205/fengsui-core": "workspace:^",
     "@wecom/aibot-node-sdk": "^1.0.1",
     "zod": "^4.6.7"
   }

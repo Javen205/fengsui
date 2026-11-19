@@ -8,8 +8,8 @@ import type {
   ChannelSendOutcome,
   CredentialResolver,
   NormalizedMessage,
-} from '@fengsui/core';
-import type { HttpClient } from '@fengsui/http';
+} from '@javen205/fengsui-core';
+import type { HttpClient } from '@javen205/fengsui-http';
 
 export const unusedHttpClient: HttpClient = {
   async request() {

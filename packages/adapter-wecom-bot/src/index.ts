@@ -23,7 +23,7 @@
  * 凭证通过 `credentialsRef`（默认 `wecom/<alias>`）解析，必须提供 `secret`：
  * `FENGSUI_CRED_WECOM_SUPPORT={"secret":"..."}`。
  */
-import type { FengsuiPlugin, PluginContext } from '@fengsui/core';
+import type { FengsuiPlugin, PluginContext } from '@javen205/fengsui-core';
 
 import { createWecomBotAdapter } from './adapter';
 import { WecomBotManager } from './manager';

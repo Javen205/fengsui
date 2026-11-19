@@ -109,7 +109,7 @@ await fengsui.send({
 - dry-run 不写入幂等存储。
 
 ```ts
-import { createFengsui, InMemoryIdempotencyStore } from '@fengsui/core';
+import { createFengsui, InMemoryIdempotencyStore } from '@javen205/fengsui-core';
 
 const fengsui = createFengsui({
   credentials,

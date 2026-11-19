@@ -4,8 +4,8 @@ import { join } from 'node:path';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { createConfigResolver, FengsuiError } from '@fengsui/core';
-import { fileConfig } from '@fengsui/config-file';
+import { createConfigResolver, FengsuiError } from '@javen205/fengsui-core';
+import { fileConfig } from '@javen205/fengsui-config-file';
 
 let tempDir: string | undefined;
 

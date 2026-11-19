@@ -7,7 +7,7 @@ import {
   type HttpClient,
   type HttpRequest,
   type HttpResponse,
-} from '@fengsui/http';
+} from '@javen205/fengsui-http';
 
 export interface AxiosHttpClientOptions {
   /** Existing axios instance. Defaults to `axios.create(defaults)`. */
@@ -102,7 +102,7 @@ function errorMessage(error: unknown): string {
 
 /**
  * HttpClient implementation backed by axios.
- * Keeps the same contract as `@fengsui/http-fetch`: non-2xx responses are
+ * Keeps the same contract as `@javen205/fengsui-http-fetch`: non-2xx responses are
  * returned as-is, the raw response body is preserved, and only transport
  * failures (network, timeout, abort, oversized body) throw `HttpTransportError`.
  */
